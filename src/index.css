@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Modifica globale per card moderne in React Bootstrap con supporto Dark Mode */
+.modern-card {
+  border: 1px solid var(--bs-border-color-translucent);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+}
+
+.modern-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.modern-card .card-header {
+  background-color: transparent;
+  border-bottom: 1px solid var(--bs-border-color-translucent);
+  font-weight: 600;
+  padding: 1rem 1.25rem;
+}
+
+/* Testo che si adatta allo sfondo invertendo i colori (visibile su chiari e scuri) */
+.adaptive-text {
+  color: white;
+  mix-blend-mode: difference;
+  text-align: center;
+  padding: 0 20px;
+}
+
+/* Effetto Glassmorphism per form dinamico */
+.glass-card {
+  background: rgba(25, 25, 25, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+[data-bs-theme="light"] .glass-card {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  color: white !important;
+}
+
+.glass-input::placeholder {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.glass-input:focus {
+  background: rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.2) !important;
+}
