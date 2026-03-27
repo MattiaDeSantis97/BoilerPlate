@@ -64,3 +64,61 @@
   background: rgba(255, 255, 255, 0.2) !important;
   box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.2) !important;
 }
+
+/* Ottimizzazione per scroll fluido su mobile */
+.reveal-section {
+  opacity: 0;
+  transform: translateY(30px); /* Ridotto da 50px per mobile */
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+  will-change:
+    opacity, transform; /* Aiuta il browser a preparare l'animazione */
+}
+
+/* Fix per immagini di sfondo su mobile */
+@media (max-width: 768px) {
+  .parallax-section {
+    background-attachment: scroll !important; /* Fixed spesso scatta su mobile */
+    background-size: cover;
+    background-position: center center;
+  }
+
+  .adaptive-text h1 {
+    font-size: 2.5rem !important; /* Ridimensiona titoli troppo grandi */
+  }
+}
+
+.reveal-section {
+  opacity: 0;
+  transform: translateY(20px); /* Ridotto al minimo per evitare lag */
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
+  visibility: hidden; /* Nasconde l'elemento finché non è visibile */
+}
+
+.reveal-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+/* Fix specifico per Mobile */
+@media (max-width: 991px) {
+  .parallax-section {
+    background-attachment: scroll !important; /* Disabilita il fixed problematico */
+    background-position: center center !important;
+    background-size: cover !important;
+    min-height: 80vh !important; /* Riduce l'altezza per evitare salti della barra indirizzi */
+  }
+
+  .adaptive-text h1 {
+    font-size: 2rem !important;
+    word-break: break-word;
+  }
+
+  .adaptive-text p {
+    font-size: 1.1rem !important;
+  }
+}
