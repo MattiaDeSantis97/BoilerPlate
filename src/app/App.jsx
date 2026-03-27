@@ -24,18 +24,18 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Navbar 
+      <Navbar
         ref={navRef}
         expanded={expanded}
         onToggle={(isExpanded) => setExpanded(isExpanded)}
-        expand="lg" 
+        expand="lg"
         className="bg-body shadow-sm fixed-top"
       >
         <Container>
-          <Navbar.Brand 
-            as={Link} 
-            to="/" 
-            className="fw-bold text-body" 
+          <Navbar.Brand
+            as={Link}
+            to="/"
+            className="fw-bold text-body"
             onClick={() => setExpanded(false)}
           >
             Boilerplate App
@@ -43,26 +43,26 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-              <Nav.Link 
-                as={Link} 
-                to="/" 
-                className="text-body" 
+              <Nav.Link
+                as={Link}
+                to="/"
+                className="text-body"
                 onClick={() => setExpanded(false)}
               >
                 Dashboard
               </Nav.Link>
-              <Nav.Link 
-                as={Link} 
-                to="/profile" 
-                className="text-body" 
+              <Nav.Link
+                as={Link}
+                to="/profile"
+                className="text-body"
                 onClick={() => setExpanded(false)}
               >
                 Profile
               </Nav.Link>
-              <Nav.Link 
-                as={Link} 
-                to="/settings" 
-                className="text-body" 
+              <Nav.Link
+                as={Link}
+                to="/settings"
+                className="text-body"
                 onClick={() => setExpanded(false)}
               >
                 Settings

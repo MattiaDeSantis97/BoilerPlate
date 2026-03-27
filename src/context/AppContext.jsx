@@ -17,7 +17,7 @@ export const AppProvider = ({ children }) => {
   };
 
   const register = (email, password, name) => {
-    const userExists = registeredUsers.find(u => u.email === email);
+    const userExists = registeredUsers.find((u) => u.email === email);
     if (userExists) return { success: false, message: 'Email già registrata.' };
 
     const newUser = { email, password, name, role: 'user' };
@@ -27,7 +27,9 @@ export const AppProvider = ({ children }) => {
   };
 
   const login = (email, password) => {
-    const foundUser = registeredUsers.find(u => u.email === email && u.password === password);
+    const foundUser = registeredUsers.find(
+      (u) => u.email === email && u.password === password
+    );
     if (foundUser) {
       setUser(foundUser);
       return { success: true };
@@ -37,14 +39,16 @@ export const AppProvider = ({ children }) => {
 
   const updateUser = (newName, newPassword) => {
     if (!user) return { success: false };
-    
+
     const updatedUser = { ...user, name: newName };
     if (newPassword) updatedUser.password = newPassword;
 
-    const updatedList = registeredUsers.map(u => 
-      u.email === user.email ? { ...u, name: newName, password: newPassword || u.password } : u
+    const updatedList = registeredUsers.map((u) =>
+      u.email === user.email
+        ? { ...u, name: newName, password: newPassword || u.password }
+        : u
     );
-    
+
     setRegisteredUsers(updatedList);
     setUser(updatedUser);
     return { success: true };
@@ -55,7 +59,9 @@ export const AppProvider = ({ children }) => {
   };
 
   return (
-    <AppContext.Provider value={{ theme, toggleTheme, user, login, register, updateUser, logout }}>
+    <AppContext.Provider
+      value={{ theme, toggleTheme, user, login, register, updateUser, logout }}
+    >
       {children}
     </AppContext.Provider>
   );

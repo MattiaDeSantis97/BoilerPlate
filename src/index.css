@@ -7,7 +7,9 @@
   border: 1px solid var(--bs-border-color-translucent);
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition:
+    transform 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
   background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
 }
@@ -43,7 +45,7 @@
   color: white;
 }
 
-[data-bs-theme="light"] .glass-card {
+[data-bs-theme='light'] .glass-card {
   background: rgba(255, 255, 255, 0.15);
   color: #fff;
 }
