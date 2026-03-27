@@ -23,7 +23,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/BoilerPlate">
       <Navbar
         ref={navRef}
         expanded={expanded}
