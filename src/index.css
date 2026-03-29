@@ -34,71 +34,81 @@
   padding: 0 20px;
 }
 
-/* Effetto Glassmorphism per form dinamico */
-.glass-card {
-  background: rgba(25, 25, 25, 0.25);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-  color: white;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  will-change: transform, backdrop-filter;
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 10px;
 }
 
-[data-bs-theme='light'] .glass-card {
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
+/* Glassmorphism Evoluto per contrasto elevato */
+.glass-card {
+  background: rgba(10, 10, 10, 0.65) !important; /* Più scuro per contrasto */
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  transform: translateZ(0);
 }
 
 .glass-input {
-  background: rgba(255, 255, 255, 0.1) !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  color: white !important;
-}
-
-.glass-input::placeholder {
-  color: rgba(255, 255, 255, 0.7) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #fff !important;
+  padding: 12px 15px !important;
+  border-radius: 12px !important;
 }
 
 .glass-input:focus {
-  background: rgba(255, 255, 255, 0.2) !important;
-  box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.2) !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1) !important;
 }
 
-/* Ottimizzazione per scroll fluido su mobile */
+/* Parallasse con Overlay per Leggibilità */
+.parallax-bg {
+  position: relative;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+/* Overlay scuro per far risaltare il contenuto */
+.parallax-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.6)
+  );
+  z-index: -1;
+}
+
+@media (hover: none) and (pointer: coarse), (max-width: 991px) {
+  .parallax-bg {
+    background-attachment: scroll !important;
+  }
+}
+
+/* Animazioni */
 .reveal-section {
   opacity: 0;
-  transform: translateY(30px); /* Ridotto da 50px per mobile */
-  transition:
-    opacity 0.6s ease-out,
-    transform 0.6s ease-out;
-  will-change:
-    opacity, transform; /* Aiuta il browser a preparare l'animazione */
-}
-
-/* Fix per immagini di sfondo su mobile */
-@media (max-width: 768px) {
-  .parallax-section {
-    background-attachment: scroll !important; /* Fixed spesso scatta su mobile */
-    background-size: cover;
-    background-position: center center;
-  }
-
-  .adaptive-text h1 {
-    font-size: 2.5rem !important; /* Ridimensiona titoli troppo grandi */
-  }
-}
-
-.reveal-section {
-  opacity: 0;
-  transform: translateY(20px); /* Ridotto al minimo per evitare lag */
-  transition:
-    opacity 0.5s ease-out,
-    transform 0.5s ease-out;
-  visibility: hidden; /* Nasconde l'elemento finché non è visibile */
+  transform: translateY(40px);
+  transition: all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1);
+  visibility: hidden;
 }
 
 .reveal-section.is-visible {
@@ -107,34 +117,7 @@
   visibility: visible;
 }
 
-/* Fix specifico per Mobile */
-@media (max-width: 991px) {
-  .parallax-section {
-    background-position: center center !important;
-    background-size: cover !important;
-    min-height: 80vh !important; /* Riduce l'altezza per evitare salti della barra indirizzi */
-  }
-
-  .adaptive-text h1 {
-    font-size: 2rem !important;
-    word-break: break-word;
-  }
-
-  .adaptive-text p {
-    font-size: 1.1rem !important;
-  }
-}
-
-.parallax-bg {
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-/* Disabilita background-attachment: fixed sui dispositivi touch per evitare frame drop e blocchi */
-@media (hover: none) and (pointer: coarse), (max-width: 991px) {
-  .parallax-bg {
-    background-attachment: scroll !important;
-  }
+.adaptive-text {
+  color: white;
+  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.8);
 }
