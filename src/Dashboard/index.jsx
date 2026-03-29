@@ -99,6 +99,14 @@ export default function Dashboard() {
                     <Form.Label className="text-white">Email</Form.Label>
                     <Form.Control type="email" className="glass-input" />
                   </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label className="text-white">Messaggio</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows={4}
+                      className="glass-input"
+                    />
+                  </Form.Group>
                   <Button
                     variant="light"
                     type="submit"
