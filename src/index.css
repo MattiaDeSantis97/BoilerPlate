@@ -124,3 +124,17 @@
     font-size: 1.1rem !important;
   }
 }
+
+.parallax-bg {
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* Disabilita background-attachment: fixed sui dispositivi touch per evitare frame drop e blocchi */
+@media (hover: none) and (pointer: coarse), (max-width: 991px) {
+  .parallax-bg {
+    background-attachment: scroll !important;
+  }
+}

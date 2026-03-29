@@ -1,17 +1,11 @@
-import { useLayoutEffect, useRef, useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Card, Form, Button, Container } from 'react-bootstrap';
 
 const ScrollReveal = ({ children }) => {
-  const [isVisible, setIsVisible] = useState(
-    !('IntersectionObserver' in window)
-  );
+  const [isVisible, setIsVisible] = useState(false);
   const domRef = useRef();
 
-  useLayoutEffect(() => {
-    if (!('IntersectionObserver' in window)) {
-      return;
-    }
-
+  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -21,12 +15,8 @@ const ScrollReveal = ({ children }) => {
           }
         });
       },
-      {
-        threshold: 0.01,
-        rootMargin: '0px 0px -50px 0px',
-      }
+      { threshold: 0.1 }
     );
-
     if (domRef.current) observer.observe(domRef.current);
     return () => observer.disconnect();
   }, []);
@@ -35,7 +25,6 @@ const ScrollReveal = ({ children }) => {
     <div
       ref={domRef}
       className={`reveal-section ${isVisible ? 'is-visible' : ''}`}
-      style={{ minHeight: '10px', width: '100%' }}
     >
       {children}
     </div>
@@ -43,73 +32,53 @@ const ScrollReveal = ({ children }) => {
 };
 
 export default function Dashboard() {
-  const [offsetY, setOffsetY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => setOffsetY(window.scrollY);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
   const sections = [
     {
       id: 1,
       title: 'Innovazione',
-      text: "Sviluppiamo soluzioni all'avanguardia.",
-      img: 'https://picsum.photos/1920/1080?random=1',
+      text: 'Sviluppiamo il futuro.',
+      img: 'https://picsum.photos/1920/1080?random=10',
     },
     {
       id: 2,
-      title: 'Design Moderno',
-      text: 'Interfacce pulite e reattive per ogni dispositivo.',
-      img: 'https://picsum.photos/1920/1080?random=2',
+      title: 'Design',
+      text: 'Esperienze immersive.',
+      img: 'https://picsum.photos/1920/1080?random=11',
     },
     {
       id: 3,
       title: 'Performance',
-      text: 'Velocità e ottimizzazione al primo posto.',
-      img: 'https://picsum.photos/1920/1080?random=3',
+      text: 'Velocità pura.',
+      img: 'https://picsum.photos/1920/1080?random=12',
     },
   ];
 
-  const handleContactSubmit = (e) => {
-    e.preventDefault();
-    alert('Messaggio inviato con successo!');
-  };
-
-  const contactSection = sections[0];
-
   return (
     <div className="overflow-hidden">
-      {/* Sezioni Full Screen */}
       {sections.map((sec) => (
         <div
           key={sec.id}
-          className="d-flex flex-column justify-content-center align-items-center"
+          className="d-flex flex-column justify-content-center align-items-center parallax-bg"
           style={{
-            backgroundImage: `url(${contactSection.img})`,
-            backgroundSize: 'cover',
-            backgroundPosition: `center ${offsetY * 0.4}px` /* Calcolo parallasse mobile/desktop */,
+            backgroundImage: `url(${sec.img})`,
             minHeight: '100vh',
             width: '100%',
           }}
         >
           <ScrollReveal>
             <div className="adaptive-text">
-              <h1 className="display-1 fw-bold mb-3">{sec.title}</h1>
+              <h1 className="display-1 fw-bold">{sec.title}</h1>
               <p className="display-6">{sec.text}</p>
             </div>
           </ScrollReveal>
         </div>
       ))}
 
-      {/* Form di Contatto */}
+      {/* Contatto */}
       <div
-        key={contactSection.id}
-        className="d-flex flex-column justify-content-center align-items-center"
+        className="d-flex flex-column justify-content-center align-items-center py-5 parallax-bg"
         style={{
-          backgroundImage: `url(${contactSection.img})`,
-          backgroundSize: 'cover',
-          backgroundPosition: `center ${offsetY * 0.4}px` /* Calcolo parallasse mobile/desktop */,
+          backgroundImage: 'url(https://picsum.photos/1920/1080?random=13)',
           minHeight: '100vh',
           width: '100%',
         }}
@@ -117,54 +86,25 @@ export default function Dashboard() {
         <Container>
           <ScrollReveal>
             <Card className="glass-card mx-auto" style={{ maxWidth: '600px' }}>
-              <Card.Header className="text-center fs-2 fw-bold border-0 pt-4 pb-0 text-white">
+              <Card.Header className="text-center fs-2 fw-bold border-0 pt-4 text-white">
                 Contattaci
               </Card.Header>
               <Card.Body className="p-4">
-                <Form onSubmit={handleContactSubmit}>
+                <Form onSubmit={(e) => e.preventDefault()}>
                   <Form.Group className="mb-3">
-                    <Form.Label className="text-white fw-semibold">
-                      Nome
-                    </Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Il tuo nome"
-                      className="glass-input"
-                      required
-                    />
+                    <Form.Label className="text-white">Nome</Form.Label>
+                    <Form.Control type="text" className="glass-input" />
                   </Form.Group>
-
                   <Form.Group className="mb-3">
-                    <Form.Label className="text-white fw-semibold">
-                      Email
-                    </Form.Label>
-                    <Form.Control
-                      type="email"
-                      placeholder="La tua email"
-                      className="glass-input"
-                      required
-                    />
+                    <Form.Label className="text-white">Email</Form.Label>
+                    <Form.Control type="email" className="glass-input" />
                   </Form.Group>
-
-                  <Form.Group className="mb-4">
-                    <Form.Label className="text-white fw-semibold">
-                      Commento
-                    </Form.Label>
-                    <Form.Control
-                      as="textarea"
-                      rows={4}
-                      placeholder="Scrivi il tuo messaggio qui..."
-                      className="glass-input"
-                      required
-                    />
-                  </Form.Group>
-
                   <Button
                     variant="light"
                     type="submit"
-                    className="w-100 fw-bold fs-5 mt-2"
+                    className="w-100 fw-bold mt-3"
                   >
-                    Invia Messaggio
+                    Invia
                   </Button>
                 </Form>
               </Card.Body>
