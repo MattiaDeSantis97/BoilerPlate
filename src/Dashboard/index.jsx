@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState, useEffect } from 'react';
 import { Card, Form, Button, Container } from 'react-bootstrap';
 
 const ScrollReveal = ({ children }) => {
@@ -43,6 +43,13 @@ const ScrollReveal = ({ children }) => {
 };
 
 export default function Dashboard() {
+  const [offsetY, setOffsetY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => setOffsetY(window.scrollY);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   const sections = [
     {
       id: 1,
@@ -69,18 +76,19 @@ export default function Dashboard() {
     alert('Messaggio inviato con successo!');
   };
 
+  const contactSection = sections[0];
+
   return (
     <div className="overflow-hidden">
       {/* Sezioni Full Screen */}
       {sections.map((sec) => (
         <div
           key={sec.id}
-          className="d-flex flex-column justify-content-center align-items-center parallax-section"
+          className="d-flex flex-column justify-content-center align-items-center"
           style={{
-            backgroundImage: `url(${sec.img})`,
+            backgroundImage: `url(${contactSection.img})`,
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundAttachment: 'fixed',
+            backgroundPosition: `center ${offsetY * 0.4}px` /* Calcolo parallasse mobile/desktop */,
             minHeight: '100vh',
             width: '100%',
           }}
@@ -96,12 +104,12 @@ export default function Dashboard() {
 
       {/* Form di Contatto */}
       <div
-        className="d-flex flex-column justify-content-center align-items-center py-5 parallax-section"
+        key={contactSection.id}
+        className="d-flex flex-column justify-content-center align-items-center"
         style={{
-          backgroundImage: 'url(https://picsum.photos/1920/1080?random=4)',
+          backgroundImage: `url(${contactSection.img})`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed',
+          backgroundPosition: `center ${offsetY * 0.4}px` /* Calcolo parallasse mobile/desktop */,
           minHeight: '100vh',
           width: '100%',
         }}

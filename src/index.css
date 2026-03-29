@@ -43,6 +43,9 @@
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
   color: white;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform, backdrop-filter;
 }
 
 [data-bs-theme='light'] .glass-card {
@@ -107,7 +110,6 @@
 /* Fix specifico per Mobile */
 @media (max-width: 991px) {
   .parallax-section {
-    background-attachment: scroll !important; /* Disabilita il fixed problematico */
     background-position: center center !important;
     background-size: cover !important;
     min-height: 80vh !important; /* Riduce l'altezza per evitare salti della barra indirizzi */
