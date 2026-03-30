@@ -142,3 +142,19 @@
   color: white;
   text-shadow: 0 2px 15px rgba(0, 0, 0, 0.8);
 }
+
+/* Override per garantire leggibilità su sfondi scuri e chiari */
+.glass-card,
+.glass-card .card-header,
+.glass-card .card-body,
+.glass-card .form-label,
+.glass-card .form-check-label,
+.glass-card p,
+.glass-card h1,
+.glass-card h2,
+.glass-card h3,
+.glass-card h4,
+.glass-card h5,
+.glass-card h6 {
+  color: #ffffff !important;
+}
